@@ -8,6 +8,7 @@ const EventForm = props => {
   const {
     modalId,
     title,
+    description,
     closeModal,
     eventname,
     inputChange,
@@ -27,7 +28,7 @@ const EventForm = props => {
 
   return (
     <div>
-      <div className="modal" id={modalId} tabIndex="-1" role="dialog">
+      <div className="modal fade" id={modalId} tabIndex="-1" role="dialog">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
@@ -51,6 +52,17 @@ const EventForm = props => {
                 />
               </div>
               <div className="form-group">
+                <label className="control-label">Description</label>
+                <textarea
+                  type="text"
+                  className="form-control form-white"
+                  placeholder="Enter description"
+                  name="description"
+                  value={description}
+                  onChange={inputChange}
+                />
+              </div>
+              <div className="form-check">
                 <input
                   className="form-check-input"
                   type="checkbox"
@@ -64,30 +76,17 @@ const EventForm = props => {
               <div className="form-group">
                 <label>Start</label>
                 <div className="row">
-                  {
-                    !showTime ? (
-                      <div className="col-md-12">
-                        <DatePicker
-                          showTimeSelect
-                          timeFormat="p"
-                          timeIntervals={1}
-                          dateFormat="Pp"
-                          selected={startDate}
-                          onChange={onInputChange('startDate')}
-                        />
-                      </div>
-                    ):
-                    (
-                      <div className="col-md-12">
-                        <DatePicker
-                          dateFormat="Pp"
-                          selected={startDate}
-                          onChange={onInputChange('startDate')}
-                        />
-                      </div>
-                    )
-                  }
-
+                  <div className="col-md-12">
+                    <DatePicker
+                      className="form-control"
+                      showTimeSelect
+                      timeFormat="p"
+                      timeIntervals={1}
+                      dateFormat="Pp"
+                      selected={startDate}
+                      onChange={onInputChange('startDate')}
+                    />
+                  </div>
                 </div>
               </div>
               <div className="form-group">
@@ -103,15 +102,16 @@ const EventForm = props => {
                             dateFormat="Pp"
                             selected={endDate}
                             onChange={onInputChange('endDate')}
+                            className="form-control"
                           />
                         </div>
                       ):
                       (
                         <div className="col-md-12">
                           <DatePicker
-                            dateFormat="Pp"
                             selected={endDate}
                             onChange={onInputChange('endDate')}
+                            className="form-control"
                           />
                         </div>
                       )
@@ -121,7 +121,9 @@ const EventForm = props => {
               <div className="form-group">
                 <label className="control-label">Choose Event Color</label>
                 <select className="form-control form-white" name="event-color"
+                  value={color}
                   onChange={handleChange}
+                  style={{'backgroundColor': colorObj[color]}}
                 >
                   <option>Select color</option>
                   {
